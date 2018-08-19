@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import kwcn.master.adapter.BaseAdapter;
+import kwcn.master.db.MediaDBHelper;
 import kwcn.master.myapplication.R;
 
 /**
@@ -58,9 +59,9 @@ public class BaseFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public static BaseFragment newInstance() {
-        BaseFragment fragment = new BaseFragment();
-        return fragment;
+        return new BaseFragment();
     }
 
 
@@ -79,9 +80,9 @@ public class BaseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_base, container, false);
 
-        Context context = getActivity().getApplicationContext();
+        final Context context = getActivity().getApplicationContext();
         mRecyclerView = view.findViewById(R.id.recyclerView);
-        mBaseAdapter = new BaseAdapter(context);
+        mBaseAdapter = new BaseAdapter(MediaDBHelper.getMusicInfoAll(context),context);
         mRecyclerView.setAdapter(mBaseAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
